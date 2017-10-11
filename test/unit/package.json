@@ -1,0 +1,16 @@
+{
+  "name": "test_repo",
+  "version": "1.0.0",
+  "description": "* Break function out of app, so it can be imported in other scripts * Check people array is giving an object * Check for pets that are undefined * Check for bad existingPets array, * Check that cat and dog are objects * Check that we only add cats and dogs with a name * Need getPets to always return an array",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/ && exit 0",
+    "answers": "mocha tests_answers/ && exit 0"
+  },
+  "author": "Lucas Hawes",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.1.1",
+    "mocha": "^3.5.0"
+  }
+}
