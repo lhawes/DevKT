@@ -1,0 +1,21 @@
+{
+    "cat": {
+        "eyes": 2,
+        "color": "black",
+        "nickname": ["kitty", "kitty-cat"]
+    },
+    "aligator": {
+        "eyes": 2,
+        "color": "greenish",
+        "dangerous": true
+    },
+    "parrot": {
+        "eyes": 2,
+        "color": "gray"
+    },
+    "spider": {
+        "eyes": 8,
+        "color": "brown",
+        "Fangs": "yes"
+    }
+}
