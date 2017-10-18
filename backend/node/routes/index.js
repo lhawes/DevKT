@@ -14,7 +14,6 @@ router.get('/', function(req, res, next) {
 
 router.get('/animal(s)?/', function (req, res, next) {
     res.json(data);
-    // res.sendStatus(200);
 });
 
 router.get('/animal/:name', function (req, res, next) {
@@ -37,17 +36,20 @@ router.put('/animal/:name', function (req, res, next) {
     res.sendStatus(201);
 });
 
+// TODO may just have to give this up
 router.post('/animal/', function (req, res, next) {
-    console.log('req.body.animals',  req.body.animals);
+    // console.log('req.body.animals',  req.body.animals);
     const animals = req.body.animals;
     animals.forEach(function (animal) {
         data[animal.name] = animal.data;
     });
-    res.sendStatus(204);
+    // res.sendStatus(200);
+    res.json(JSON.stringify({"A":"bone"}));
+    res.send('been seen and be heard');
 });
 
 router.options('/animal/', function (req, res, next) {
-    res.sendStatus(204);
+    res.sendStatus(200);
 });
 
 module.exports = router;
