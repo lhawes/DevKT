@@ -3,7 +3,6 @@
 var express = require('express');
 var router = express.Router();
 const data = require('../db/data');
-const util = require('../util/actions.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -12,44 +11,50 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/animal(s)?/', function (req, res, next) {
+router.get('/animals/', function (req, res, next) {
     res.json(data);
 });
 
-router.get('/animal/:name', function (req, res, next) {
-    const animalName = req.params.name;
-    if (data[animalName]) {
-        res.json(JSON.stringify(data[animalName]));
-    } else {
-        res.sendStatus(204);
-    }
-});
-
-router.delete('/animal/:name', function (req, res, next) {
-    const animalName = req.params.name;
-    delete data[animalName];
-    res.sendStatus(202);
-});
-
-router.put('/animal/:name', function (req, res, next) {
-    util.put(data, req.params.name, req.body.animal);
-    res.sendStatus(201);
-});
-
-// TODO may just have to give this up
-router.post('/animal/', function (req, res, next) {
-    // console.log('req.body.animals',  req.body.animals);
-    const animals = req.body.animals;
-    animals.forEach(function (animal) {
-        data[animal.name] = animal.data;
+router.route('/animal/:name')
+    .get(function (req, res, next) {
+        const animalName = req.params.name;
+        console.log('animalName',  animalName);
+        if (animalName.length && data[animalName]) {
+            res.json(data[animalName]);
+        } else {
+            res.send('no animal ' + animalName + ' to get');
+        }
+    })
+    .delete(function (req, res, next) {
+        const animalName = req.params.name;
+        if (data[animalName]) {
+            delete data[animalName];
+            res.sendStatus(202);
+        } else {
+            res.send('no animal ' + animalName + ' to delete');
+        }
+    })
+    .put(function (req, res, next) {
+        console.log('req.body',  Object.keys(req.body));
+        const animalName = req.params.name;
+        const animal = typeof req.body.data === 'string' ? JSON.parse(req.body.data) : req.body.data ;
+        if (!data[animalName]) { // idempotency!!!
+            data[animalName] = animal;
+            res.sendStatus(200);
+        } else {
+            res.send('animal ' + animalName + ' already exists')
+        }
+    })
+    .post(function (req, res, next) {
+        console.log('req.body',  Object.keys(req.body));
+        const animalName = req.params.name;
+        const animal = typeof req.body.data === 'string' ? JSON.parse(req.body.data) : req.body.data ;
+        if (data[animalName]) { // idempotency!!!
+            data[animalName] = animal;
+            res.sendStatus('updated ' + animalName);
+        } else {
+            res.send('no animal ' + animalName + ' to update');
+        }
     });
-    // res.sendStatus(200);
-    res.json(JSON.stringify({"A":"bone"}));
-    res.send('been seen and be heard');
-});
-
-router.options('/animal/', function (req, res, next) {
-    res.sendStatus(200);
-});
 
 module.exports = router;

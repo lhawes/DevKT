@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Node Express Test Page</title>
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <style>
+        body * {
+            display: block;
+        }
+        script {
+            display:none !important;
+        }
+        textarea {
+            outline:0px !important;
+            -webkit-appearance:none;
+        }
+    </style>
+</head>
+<body>
+    <h3>Node Express Test Page</h3>
+    <button onclick="GETallfn();">GET all</button>
+    <div>
+        <pre id="GETall"></pre>
+    </div>
+    <hr />
+    <button onclick="GETonefn();">GET one</button><input id="GEToneInput"type="text"></input>
+    <div>
+        <pre id="GETone"></pre>
+    </div>
+    <hr />
+    <button onclick="DELETEonefn();">DELETE one</button><input id="DELETEoneInput"type="text"></input>
+    <div>
+        <pre id="DELETEone"></pre>
+    </div>
+    <hr />
+    <button onclick="PUTonefn();">PUT one (insert)</button><input id="PUToneInput" type="text"></input><p>Must be Valid JSON:</p><textarea name="" id="PUToneText" cols="30" rows="10" onkeyup="validJSON(this);">{}</textarea>
+    <div>
+        <pre id="PUTone"></pre>
+    </div>
+    <hr />
+    <button onclick="POSTonefn();">POST one (update)</button><input id="POSToneInput" type="text"></input><p>Must be Valid JSON:</p><textarea name="" id="POSToneText" cols="30" rows="10" onkeyup="validJSON(this);">{}</textarea>
+    <div>
+        <pre id="POSTone"></pre>
+    </div>
+    <hr />
+    <script>
+        var GETallfn = function () {
+            makeReq('GETall', makeConf('GET', 'http://localhost:3000/animals'));
+        }
+        var GETonefn = function () {
+            var name = document.getElementById('GEToneInput').value;
+            makeReq('GETone', makeConf('GET', 'http://localhost:3000/animal/' + name));
+        }
+        var DELETEonefn = function () {
+            var name = document.getElementById('DELETEoneInput').value;
+            makeReq('DELETEone', makeConf('DELETE', 'http://localhost:3000/animal/' + name));
+        }
+        var PUTonefn = function () {
+            var name = document.getElementById('PUToneInput').value;
+            var data = document.getElementById('PUToneText').value;
+            makeReq('PUTone', makeConf('PUT', 'http://localhost:3000/animal/' + name, data));
+        }
+        var POSTonefn = function () {
+            var name = document.getElementById('POSToneInput').value;
+            var data = document.getElementById('POSToneText').value;
+            makeReq('POSTone', makeConf('POST', 'http://localhost:3000/animal/' + name, data));
+        }
+        function makeConf (method, url, data) {
+            return {
+                "async": true,
+                "crossDomain": true,
+                "url": url,
+                "method": method,
+                "data": {"data": data}
+            }
+        }
+        function makeReq (id, conf) {
+            $.ajax(conf)
+            .done(function (response) {
+                var ele = document.getElementById(id);
+                ele.innerHTML = response ? JSON.stringify(response, null, 2) : 'request success no action';
+                console.log(response);
+            })
+            .fail(function (response) {
+                var ele = document.getElementById(id);
+                ele.innerHTML = 'failed request';
+                console.log('failed request');
+            });
+        }
+        function validJSON (ele) {
+            if (/^[\],:{}\s]*$/.test(ele.value.replace(/\\["\\\/bfnrtu]/g, '@').
+                replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+                replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+                ele.style['border-color'] = 'green';
+            } else {
+                ele.style['border-color'] = 'red';
+            }
+        }
+</script>
+</body>
+</html>

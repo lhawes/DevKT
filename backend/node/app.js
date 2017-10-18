@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
@@ -14,6 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', index);
+app.use(express.static('./public'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
