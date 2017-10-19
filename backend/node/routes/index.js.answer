@@ -10,6 +10,8 @@ router.get('/', function(req, res, next) {
   });
 });
 
-// TODO redirect /test to /testpage.html
+router.get('/test', function(req, res, next) {
+   res.redirect(301, '/testpage.html');
+});
 
 module.exports = router;

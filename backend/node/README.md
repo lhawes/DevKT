@@ -49,3 +49,6 @@ a.color += 'a'; // every time this is done, the output will change
 - Hook up the routing for animals
 - Build out the API
 - Make all tests pass
+
+### B-B-B-BONUS
+- Write and implement middleware that logs out the color of any animal in a PUT or POST request
