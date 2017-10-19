@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "./node_modules/nodemon/bin/nodemon.js ./bin/www",
-    "test": "./node_modules/.bin/mocha test/test.js --reporter=nyan"
+    "test": "./node_modules/.bin/mocha test/test.js"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
