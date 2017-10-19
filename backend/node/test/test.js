@@ -50,7 +50,6 @@ describe('/animal', function () {
 
         const testname = 'lobster';
         const testdata = {"color": "red"};
-        const fakename = 'antelope';
         it('should PUT a new animal into data', (done) => {
             request(app)
                 .put('/animal/' + testname)
@@ -75,16 +74,6 @@ describe('/animal', function () {
                 .end(function(err, res) {
                     if (err) return done(err);
                     expect(res.body).to.be.deep.equal(testdata);
-                    done();
-                });
-        });
-        it('shouldn\'t GET an animal that is not in data', (done) => {
-            request(app)
-                .get('/animal/' + fakename)
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) return done(err);
-                    expect(res.text).to.be.equal('no animal ' + fakename + ' to get');
                     done();
                 });
         });
@@ -113,6 +102,16 @@ describe('/animal', function () {
                 .end(function(err, res) {
                     if (err) return done(err);
                     expect(res.text).to.be.equal('no animal ' + testname + ' to delete');
+                    done();
+                });
+        });
+        it('shouldn\'t GET an animal that is not in data', (done) => {
+            request(app)
+                .get('/animal/' + testname)
+                .expect(200)
+                .end(function(err, res) {
+                    if (err) return done(err);
+                    expect(res.text).to.be.equal('no animal ' + testname + ' to get');
                     done();
                 });
         });
