@@ -5,7 +5,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var animal = require('./routes/animal');
+// TODO get animals route
 
 var app = express();
 
@@ -14,9 +14,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', index);
-app.use('/animal', animal);
+// TODO /animal routing
 
-app.use(express.static('./public'));
+// TODO static serve public
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
