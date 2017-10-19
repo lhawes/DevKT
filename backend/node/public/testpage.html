@@ -22,14 +22,9 @@
 </head>
 <body>
     <h3>Node Express Test Page</h3>
-    <button onclick="GETallfn();">GET all</button>
+    <button onclick="GETfn();">GET 1 or all</button><input id="GETInput"type="text"></input>
     <div>
-        <pre id="GETall"></pre>
-    </div>
-    <hr />
-    <button onclick="GETonefn();">GET one</button><input id="GEToneInput"type="text"></input>
-    <div>
-        <pre id="GETone"></pre>
+        <pre id="GET"></pre>
     </div>
     <hr />
     <button onclick="DELETEonefn();">DELETE one</button><input id="DELETEoneInput"type="text"></input>
@@ -48,12 +43,9 @@
     </div>
     <hr />
     <script>
-        var GETallfn = function () {
-            makeReq('GETall', makeConf('GET', 'http://localhost:3000/animals'));
-        }
-        var GETonefn = function () {
-            var name = document.getElementById('GEToneInput').value;
-            makeReq('GETone', makeConf('GET', 'http://localhost:3000/animal/' + name));
+        var GETfn = function () {
+            var name = document.getElementById('GETInput').value;
+            makeReq('GET', makeConf('GET', 'http://localhost:3000/animal/' + name));
         }
         var DELETEonefn = function () {
             var name = document.getElementById('DELETEoneInput').value;
