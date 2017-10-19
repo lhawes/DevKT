@@ -22,6 +22,17 @@ describe("/", function () {
                 done();
             });
     });
+    it('should redirect form /test to /testpage.html', (done) => {
+        request(app)
+            .get('/test')
+            .expect('Content-Type', 'text/plain; charset=utf-8')
+            .expect(301)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(true).to.be.true;
+                done();
+            });
+    });
     it('should serve the test page', (done) => {
         request(app)
             .get('/testpage.html')

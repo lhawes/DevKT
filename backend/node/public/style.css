@@ -1,0 +1,10 @@
+body * {
+    display: block;
+}
+script {
+    display: none !important;
+}
+textarea {
+    outline: 0px !important;
+    -webkit-appearance: none;
+}
