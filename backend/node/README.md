@@ -3,13 +3,13 @@ Use this repo to build an API with Node and express that manages a database of a
 
 ### Setup
 ```sh
-npm install
+$ npm install
 
-# to serve run
-npm run start
+# To serve:
+$ npm start
 
-# to run tests
-npm run test
+# To run tests:
+$ npm test
 
 ```
 
